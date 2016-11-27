@@ -1,0 +1,1006 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="test_aspnetdb1" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=TONFUN120;Initial Catalog=test_aspnetdb1;Integrated Security=True;Pooling=False" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="test_aspnetdb1ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.University" Member="Universities">
+    <Type Name="University">
+      <Column Name="UniversityID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UniversityName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Apply_Reasons" Member="Apply_Reasons">
+    <Type Name="Apply_Reason">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ApplyReasons" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Applications" Member="aspnet_Applications">
+    <Type Name="aspnet_Application">
+      <Column Name="ApplicationName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredApplicationName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Memberships" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Membership" />
+      <Association Name="aspnet_Application_aspnet_Path" Member="aspnet_Paths" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Path" />
+      <Association Name="aspnet_Application_aspnet_Role" Member="aspnet_Roles" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Role" />
+      <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Users" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_User" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Membership" Member="aspnet_Memberships">
+    <Type Name="aspnet_Membership">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordFormat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PasswordSalt" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Column Name="MobilePIN" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="LoweredEmail" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordQuestion" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordAnswer" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsLockedOut" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastPasswordChangedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="LastLockoutDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAttemptCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAnswerAttemptCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FailedPasswordAnswerAttemptWindowStart" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="aspnet_Application_aspnet_Membership" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
+      <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Paths" Member="aspnet_Paths">
+    <Type Name="aspnet_Path">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="PathId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Path" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredPath" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Path_aspnet_PersonalizationAllUser" Member="aspnet_PersonalizationAllUser" ThisKey="PathId" OtherKey="PathId" Type="aspnet_PersonalizationAllUser" Cardinality="One" />
+      <Association Name="aspnet_Path_aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers" ThisKey="PathId" OtherKey="PathId" Type="aspnet_PersonalizationPerUser" />
+      <Association Name="aspnet_Application_aspnet_Path" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_PersonalizationAllUsers" Member="aspnet_PersonalizationAllUsers">
+    <Type Name="aspnet_PersonalizationAllUser">
+      <Column Name="PathId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PageSettings" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Path_aspnet_PersonalizationAllUser" Member="aspnet_Path" ThisKey="PathId" OtherKey="PathId" Type="aspnet_Path" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers">
+    <Type Name="aspnet_PersonalizationPerUser">
+      <Column Name="Id" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PathId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="PageSettings" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_Path_aspnet_PersonalizationPerUser" Member="aspnet_Path" ThisKey="PathId" OtherKey="PathId" Type="aspnet_Path" IsForeignKey="true" />
+      <Association Name="aspnet_User_aspnet_PersonalizationPerUser" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Profile" Member="aspnet_Profiles">
+    <Type Name="aspnet_Profile">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PropertyNames" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="PropertyValuesString" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="PropertyValuesBinary" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="LastUpdatedDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Roles" Member="aspnet_Roles">
+    <Type Name="aspnet_Role">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredRoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Association Name="aspnet_Role_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="RoleId" OtherKey="RoleId" Type="aspnet_UsersInRole" />
+      <Association Name="aspnet_Application_aspnet_Role" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_SchemaVersions" Member="aspnet_SchemaVersions">
+    <Type Name="aspnet_SchemaVersion">
+      <Column Name="Feature" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CompatibleSchemaVersion" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsCurrentVersion" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_Users" Member="aspnet_Users">
+    <Type Name="aspnet_User">
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="aspnet_User_aspnet_Membership" Member="aspnet_Membership" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Membership" Cardinality="One" />
+      <Association Name="aspnet_User_aspnet_PersonalizationPerUser" Member="aspnet_PersonalizationPerUsers" ThisKey="UserId" OtherKey="UserId" Type="aspnet_PersonalizationPerUser" />
+      <Association Name="aspnet_User_aspnet_Profile" Member="aspnet_Profile" ThisKey="UserId" OtherKey="UserId" Type="aspnet_Profile" Cardinality="One" />
+      <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_UsersInRoles" ThisKey="UserId" OtherKey="UserId" Type="aspnet_UsersInRole" />
+      <Association Name="aspnet_Application_aspnet_User" Member="aspnet_Application" ThisKey="ApplicationId" OtherKey="ApplicationId" Type="aspnet_Application" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_UsersInRoles" Member="aspnet_UsersInRoles">
+    <Type Name="aspnet_UsersInRole">
+      <Column Name="UserId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="aspnet_Role_aspnet_UsersInRole" Member="aspnet_Role" ThisKey="RoleId" OtherKey="RoleId" Type="aspnet_Role" IsForeignKey="true" />
+      <Association Name="aspnet_User_aspnet_UsersInRole" Member="aspnet_User" ThisKey="UserId" OtherKey="UserId" Type="aspnet_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.aspnet_WebEvent_Events" Member="aspnet_WebEvent_Events">
+    <Type Name="aspnet_WebEvent_Event">
+      <Column Name="EventId" Type="System.String" DbType="Char(32) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="EventTimeUtc" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EventTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="EventType" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="EventSequence" Type="System.Decimal" DbType="Decimal(19,0) NOT NULL" CanBeNull="false" />
+      <Column Name="EventOccurrence" Type="System.Decimal" DbType="Decimal(19,0) NOT NULL" CanBeNull="false" />
+      <Column Name="EventCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDetailCode" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="ApplicationPath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="ApplicationVirtualPath" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="MachineName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="RequestUrl" Type="System.String" DbType="NVarChar(1024)" CanBeNull="true" />
+      <Column Name="ExceptionType" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="Details" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Audit" Member="Audits">
+    <Type Name="Audit">
+      <Column Name="CheckID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OperteID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="InitialAuditor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InitialTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="InitialResult" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="InitialSuggestion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="FinalAuditor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FinalTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalResult" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FinalSuggestion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="ModifyApplication_Audit" Member="ModifyApplication" ThisKey="OperteID" OtherKey="OperateID" Type="ModifyApplication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CampusLocation" Member="CampusLocations">
+    <Type Name="CampusLocation">
+      <Column Name="CampusLocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CampusLocationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NCRECampusLocationID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NCRECampusLocationName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CETCampusLocationID" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="CETCampusLocationName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CampusCode" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="CampusNumber" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Association Name="CampusLocation_Class" Member="Classes" ThisKey="CampusLocationID" OtherKey="CampusLocationID" Type="Class" />
+      <Association Name="CampusLocation_NCREINFO" Member="NCREINFOs" ThisKey="CampusLocationID" OtherKey="CampusLocationID" Type="NCREINFO" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChangeCampus" Member="ChangeCampus">
+    <Type Name="ChangeCampus">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubjID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Reason" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ChangedCampusID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="CurState" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="CheckResult" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="JMCheckUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="JMCheckDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="JWCheckUser1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="JWCheckResult1" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="JWCheckTime1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="JWCheckUser2" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="JWCheckResult2" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="JWCheckTime2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class" Member="Classes">
+    <Type Name="Class">
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CampusLocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NChar(200)" CanBeNull="true" />
+      <Column Name="NCRECampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="CETCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MHKCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ClassNumber" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Association Name="Class_Student" Member="Students" ThisKey="ClassID" OtherKey="ClassID" Type="Student" />
+      <Association Name="CampusLocation_Class" Member="CampusLocation" ThisKey="CampusLocationID" OtherKey="CampusLocationID" Type="CampusLocation" IsForeignKey="true" />
+      <Association Name="Major_Class" Member="Major" ThisKey="MajorID" OtherKey="MajorID" Type="Major" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Dept" Member="Depts">
+    <Type Name="Dept">
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DeptNumber" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Association Name="Dept_DeptProcess" Member="DeptProcesses" ThisKey="DeptID" OtherKey="DeptID" Type="DeptProcess" />
+      <Association Name="Dept_Lszh" Member="Lszhs" ThisKey="DeptID" OtherKey="DeptID" Type="Lszh" />
+      <Association Name="Dept_Major" Member="Majors" ThisKey="DeptID" OtherKey="DeptID" Type="Major" />
+      <Association Name="Dept_RegisterProcess" Member="RegisterProcesses" ThisKey="DeptID" OtherKey="DeptID" Type="RegisterProcess" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DeptProcess" Member="DeptProcesses">
+    <Type Name="DeptProcess">
+      <Column Name="RegisterTypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RegisterState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="Dept_DeptProcess" Member="Dept" ThisKey="DeptID" OtherKey="DeptID" Type="Dept" IsForeignKey="true" />
+      <Association Name="RegisterState_DeptProcess" Member="RegisterState1" ThisKey="RegisterTypeID" OtherKey="RegisterTypeID" Type="RegisterState" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EngClass" Member="EngClasses">
+    <Type Name="EngClass">
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CampusLocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NChar(200)" CanBeNull="true" />
+      <Column Name="NCRECampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="CETCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MHKCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ClassNumber" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Association Name="EngMajor_EngClass" Member="EngMajor" ThisKey="MajorID" OtherKey="MajorID" Type="EngMajor" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EngDept" Member="EngDepts">
+    <Type Name="EngDept">
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DeptNumber" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Association Name="EngDept_EngMajor" Member="EngMajors" ThisKey="DeptID" OtherKey="DeptID" Type="EngMajor" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EngGrade" Member="EngGrades">
+    <Type Name="EngGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LanguageLevel" Type="System.String" DbType="NVarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="StudentDetail_EngGrade" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_EngGrade" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EngMajor" Member="EngMajors">
+    <Type Name="EngMajor">
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MajorNumber" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="EngMajor_EngClass" Member="EngClasses" ThisKey="MajorID" OtherKey="MajorID" Type="EngClass" />
+      <Association Name="EngDept_EngMajor" Member="EngDept" ThisKey="DeptID" OtherKey="DeptID" Type="EngDept" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EngRedo" Member="EngRedos">
+    <Type Name="EngRedo">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApplyUser" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ApplyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ApplyReason" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CurState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="InitUser" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="InitResult" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="InitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="InitSuggestion" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="FinalUser" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FinalResult" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="FinalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalSuggestion" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="StudentDetail_EngRedo" Member="StudentDetail" ThisKey="StuID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_EngRedo" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FiveWater" Member="FiveWaters">
+    <Type Name="FiveWater">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FourWater" Member="FourWaters">
+    <Type Name="FourWater">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.GetLsh" Member="GetLshes">
+    <Type Name="GetLsh">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="lsh" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Handle_Suggestion" Member="Handle_Suggestions">
+    <Type Name="Handle_Suggestion">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HandleResult" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.History" Member="Histories">
+    <Type Name="History">
+      <Column Name="OperateID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="HistroyID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ModifyType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyPre_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyPre_UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ModifyPre_Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="ModifyPre_NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ModifyPre_CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ModifyPre_GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ModifyPre_ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyPre_MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyPre_DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyPre_Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ModifyAft_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyAft_UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ModifyAft_Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="ModifyAft_NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ModifyAft_CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="ModifyAft_GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ModifyAft_ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyAft_MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ModifyAft_DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OperateTime" Type="System.DateTime" DbType="DateTime NOT NULL" IsDbGenerated="true" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ModifyAft_Image" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="ModifyApplication_History" Member="ModifyApplication" ThisKey="OperateID" OtherKey="OperateID" Type="ModifyApplication" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.llv" Member="llvs">
+    <Type Name="llv">
+      <Column Name="llv_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="llv_Number" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_Name" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_SimpleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="llv_StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="llv_EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="llv_TimeSpan" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_cost" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_Note" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="IsAllowRegister" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsNeedAudit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="llv_StuReg" Member="StuRegs" ThisKey="llv_ID" OtherKey="SubID" Type="StuReg" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[log]" Member="logs">
+    <Type Name="log">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperateUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OperateType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="OperateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UserIp" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ObjectUser" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lszh" Member="Lszhs">
+    <Type Name="Lszh">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StartNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EndNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CurrentState" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="EngStartNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EngEndNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EngCurState" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Column Name="MHKStartNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MHKEndNum" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MHKCurState" Type="System.String" DbType="NVarChar(6) NOT NULL" CanBeNull="false" />
+      <Association Name="Dept_Lszh" Member="Dept" ThisKey="DeptID" OtherKey="DeptID" Type="Dept" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Major" Member="Majors">
+    <Type Name="Major">
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="MajorNumber" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Association Name="Major_Class" Member="Classes" ThisKey="MajorID" OtherKey="MajorID" Type="Class" />
+      <Association Name="Dept_Major" Member="Dept" ThisKey="DeptID" OtherKey="DeptID" Type="Dept" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MandarinGrade" Member="MandarinGrades">
+    <Type Name="MandarinGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExamRegNum" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TestLevel" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CertificateNumber" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="StudentDetail_MandarinGrade" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_MandarinGrade" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mandarinRegister" Member="mandarinRegisters">
+    <Type Name="mandarinRegister">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RegCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TestCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TrainCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsRegistered" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RegTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NCRedoState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="StudentDetail_mandarinRegister" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MHKConflict" Member="MHKConflicts">
+    <Type Name="MHKConflict">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MHKSujectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MHKSubjectName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mhkFinalReg" Member="mhkFinalRegs">
+    <Type Name="mhkFinalReg">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="KD_DM" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="KD_MC" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="KS_XM" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="sfzh" Type="System.String" DbType="NVarChar(18)" CanBeNull="true" />
+      <Column Name="mz" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="zzmm" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="tlks" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="tlbs" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="flks" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="flbs" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="zsdylsh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="whcd" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="xy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="sxzy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="nj" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="bj" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="xh" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="StudentDetail_mhkFinalReg" Member="StudentDetail" ThisKey="StuID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_mhkFinalReg" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MHKGrade" Member="MHKGrades">
+    <Type Name="MHKGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectName" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TestLevel" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CertificationNum" Type="System.String" DbType="NVarChar(9)" CanBeNull="true" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="StudentDetail_MHKGrade" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_MHKGrade" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MHKStuReg" Member="MHKStuRegs">
+    <Type Name="MHKStuReg">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="KDNum" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Politicstatus" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="printlsh" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="CurGrade" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.String" DbType="NVarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MHKRedoState" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Association Name="MHKSubject_MHKStuReg" Member="MHKSubject" ThisKey="SubjID" OtherKey="MHKSubID" Type="MHKSubject" IsForeignKey="true" />
+      <Association Name="StudentDetail_MHKStuReg" Member="StudentDetail" ThisKey="StuID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.MHKSubject" Member="MHKSubjects">
+    <Type Name="MHKSubject">
+      <Column Name="MHKSubID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MHKSubName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MHKNote" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IsNeedAudit" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="MHKSubject_MHKStuReg" Member="MHKStuRegs" ThisKey="MHKSubID" OtherKey="SubjID" Type="MHKStuReg" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModifyApplication" Member="ModifyApplications">
+    <Type Name="ModifyApplication">
+      <Column Name="OperateID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AppliantID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ModifyType" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="ModifyReason" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ApplyDate" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="AuditResult" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AuditSuggestion" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="AuditDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="AuditState" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="ModifyApplication_Audit" Member="Audits" ThisKey="OperateID" OtherKey="OperteID" Type="Audit" />
+      <Association Name="ModifyApplication_History" Member="Histories" ThisKey="OperateID" OtherKey="OperateID" Type="History" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nationality" Member="Nationalities">
+    <Type Name="Nationality">
+      <Column Name="NationailtyName" Type="System.String" DbType="NVarChar(10) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NCRECODE" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NCREGrade" Member="NCREGrades">
+    <Type Name="NCREGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="CertificationNum" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="cj" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="NCRESUBJECT_NCREGrade" Member="NCRESUBJECT" ThisKey="TestRegisterID,SubjectID" OtherKey="TestRegisterID,SubjectID" Type="NCRESUBJECT" IsForeignKey="true" />
+      <Association Name="StudentDetail_NCREGrade" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NCREINFO" Member="NCREINFOs">
+    <Type Name="NCREINFO">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TEST_ID" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="ORG_CODE" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="EXPORTTYPE" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="CREATETIME" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+      <Column Name="CampusLocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="NCRETestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="NCREINFO_NCREREGISTER" Member="NCREREGISTERs" ThisKey="NCRETestRegisterID" OtherKey="NCRETestRegisterID" Type="NCREREGISTER" />
+      <Association Name="CampusLocation_NCREINFO" Member="CampusLocation" ThisKey="CampusLocationID" OtherKey="CampusLocationID" Type="CampusLocation" IsForeignKey="true" />
+      <Association Name="TestRegister_NCREINFO" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NCREREGISTER" Member="NCREREGISTERs">
+    <Type Name="NCREREGISTER">
+      <Column Name="StudentRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IDENT" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="REGCODE" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="IsPrinted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SUBJECT_STAGE" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NCRETestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="zkzh" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="NCRERegisterCampus" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="NCRERedoState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="NCREINFO_NCREREGISTER" Member="NCREINFO" ThisKey="NCRETestRegisterID" OtherKey="NCRETestRegisterID" Type="NCREINFO" IsForeignKey="true" />
+      <Association Name="Student_NCREREGISTER" Member="Student" ThisKey="StudentID" OtherKey="StudentID" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NCRESUBJECT" Member="NCRESUBJECTs">
+    <Type Name="NCRESUBJECT">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TEST_ID" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SUBJECTCODE" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="GRADE" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TESTTIME1" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="TESTTIME2" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="SUBJECTNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="NCRESUBJECT_NCREGrade" Member="NCREGrades" ThisKey="TestRegisterID,SubjectID" OtherKey="TestRegisterID,SubjectID" Type="NCREGrade" />
+      <Association Name="TestRegister_NCRESUBJECT" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Operate_Type" Member="Operate_Types">
+    <Type Name="Operate_Type">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="OperateType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RedoAudit" Member="RedoAudits">
+    <Type Name="RedoAudit">
+      <Column Name="NCRedoID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ApplyUser" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ApplyReason" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ApplyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="InitUser" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="InitResult" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="InitSuggestion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="InitDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FinalUser" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="FinalResult" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="FinalSuggestion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FinalDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NCRedoState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NCRedoResult" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Association Name="RedoAudit_RedoInfo" Member="RedoInfos" ThisKey="NCRedoID" OtherKey="NCRedoID" Type="RedoInfo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RedoInfo" Member="RedoInfos">
+    <Type Name="RedoInfo">
+      <Column Name="NCRedoID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="NCRedoNode" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="RedoAudit_RedoInfo" Member="RedoAudit" ThisKey="NCRedoID" OtherKey="NCRedoID" Type="RedoAudit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RegisterProcess" Member="RegisterProcesses">
+    <Type Name="RegisterProcess">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Dept_RegisterProcess" Member="Dept" ThisKey="DeptID" OtherKey="DeptID" Type="Dept" IsForeignKey="true" />
+      <Association Name="TestRegister_RegisterProcess" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RegisterState" Member="RegisterStates">
+    <Type Name="RegisterState">
+      <Column Name="RegisterTypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RegisterCurState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="RegisterState_DeptProcess" Member="DeptProcesses" ThisKey="RegisterTypeID" OtherKey="RegisterTypeID" Type="DeptProcess" />
+    </Type>
+  </Table>
+  <Table Name="dbo.School" Member="Schools">
+    <Type Name="School">
+      <Column Name="SchoolID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SchoolName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="SchoolNumber" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Secretary" Member="Secretaries">
+    <Type Name="Secretary">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IsValidated" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="RealName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Student" Member="Students">
+    <Type Name="Student">
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StudentIDCardID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="IsAccountExisted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsInformationConfirmed" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Association Name="Student_NCREREGISTER" Member="NCREREGISTERs" ThisKey="StudentID" OtherKey="StudentID" Type="NCREREGISTER" />
+      <Association Name="Student_StudentDetail" Member="StudentDetail" ThisKey="StudentID" OtherKey="StudentID" Type="StudentDetail" Cardinality="One" />
+      <Association Name="Student_StuInfoChange" Member="StuInfoChanges" ThisKey="StudentID" OtherKey="stuID" Type="StuInfoChange" />
+      <Association Name="Class_Student" Member="Class" ThisKey="ClassID" OtherKey="ClassID" Type="Class" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StudentDetail" Member="StudentDetails">
+    <Type Name="StudentDetail">
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BirthDate" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ImportedStudentInfo" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="jg" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="lyd" Type="System.String" DbType="NVarChar(30)" CanBeNull="true" />
+      <Column Name="xz" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="cc" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="jtszd" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="IsInfomationConfirmed" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="IsGraduated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="StudentDetail_EngGrade" Member="EngGrades" ThisKey="StudentID" OtherKey="StudentID" Type="EngGrade" />
+      <Association Name="StudentDetail_EngRedo" Member="EngRedos" ThisKey="StudentID" OtherKey="StuID" Type="EngRedo" />
+      <Association Name="StudentDetail_MandarinGrade" Member="MandarinGrades" ThisKey="StudentID" OtherKey="StudentID" Type="MandarinGrade" />
+      <Association Name="StudentDetail_mandarinRegister" Member="mandarinRegisters" ThisKey="StudentID" OtherKey="StudentID" Type="mandarinRegister" />
+      <Association Name="StudentDetail_mhkFinalReg" Member="mhkFinalRegs" ThisKey="StudentID" OtherKey="StuID" Type="mhkFinalReg" />
+      <Association Name="StudentDetail_MHKGrade" Member="MHKGrades" ThisKey="StudentID" OtherKey="StudentID" Type="MHKGrade" />
+      <Association Name="StudentDetail_MHKStuReg" Member="MHKStuRegs" ThisKey="StudentID" OtherKey="StuID" Type="MHKStuReg" />
+      <Association Name="StudentDetail_NCREGrade" Member="NCREGrades" ThisKey="StudentID" OtherKey="StudentID" Type="NCREGrade" />
+      <Association Name="StudentDetail_StuReg" Member="StuRegs" ThisKey="StudentID" OtherKey="StuID" Type="StuReg" />
+      <Association Name="Student_StudentDetail" Member="Student" ThisKey="StudentID" OtherKey="StudentID" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StuInfoChange" Member="StuInfoChanges">
+    <Type Name="StuInfoChange">
+      <Column Name="ChangeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="stuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ChangeReason" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="jwcIsChecked" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="jwcNote" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DetailReason" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Student_StuInfoChange" Member="Student" ThisKey="stuID" OtherKey="StudentID" Type="Student" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.StuRegs" Member="StuRegs">
+    <Type Name="StuReg">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SubID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RegisterNum" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+      <Column Name="RegisterCampus" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="RegLanLevel" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(32)" CanBeNull="true" />
+      <Column Name="StudentGender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="StuEduLel" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="StuEduLen" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="StuNum" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StuDept" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="StuMajor" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="StuGrade" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="StuClass" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="StuIdentify" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="BelongCampus" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="RegisterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RegisterMODIFYB" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RegiserMODIFY2" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="RegisterMODIFY" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Photo_MODI" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="PHOTO_SIZE" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CETRedoState" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="llv_StuReg" Member="llv" ThisKey="SubID" OtherKey="llv_ID" Type="llv" IsForeignKey="true" />
+      <Association Name="StudentDetail_StuReg" Member="StudentDetail" ThisKey="StuID" OtherKey="StudentID" Type="StudentDetail" IsForeignKey="true" />
+      <Association Name="TestRegister_StuReg" Member="TestRegister" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="TestRegister" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Test" Member="Tests">
+    <Type Name="Test">
+      <Column Name="TestTypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="TestTypeName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Test_TestRegister" Member="TestRegisters" ThisKey="TestTypeID" OtherKey="TestTypeID" Type="TestRegister" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestRegister" Member="TestRegisters">
+    <Type Name="TestRegister">
+      <Column Name="TestTypeID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="TestRegister_EngGrade" Member="EngGrades" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="EngGrade" />
+      <Association Name="TestRegister_EngRedo" Member="EngRedos" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="EngRedo" />
+      <Association Name="TestRegister_MandarinGrade" Member="MandarinGrades" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="MandarinGrade" />
+      <Association Name="TestRegister_mhkFinalReg" Member="mhkFinalRegs" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="mhkFinalReg" />
+      <Association Name="TestRegister_MHKGrade" Member="MHKGrades" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="MHKGrade" />
+      <Association Name="TestRegister_NCREINFO" Member="NCREINFOs" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="NCREINFO" />
+      <Association Name="TestRegister_NCRESUBJECT" Member="NCRESUBJECTs" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="NCRESUBJECT" />
+      <Association Name="TestRegister_RegisterProcess" Member="RegisterProcesses" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="RegisterProcess" />
+      <Association Name="TestRegister_StuReg" Member="StuRegs" ThisKey="TestRegisterID" OtherKey="TestRegisterID" Type="StuReg" />
+      <Association Name="Test_TestRegister" Member="Test" ThisKey="TestTypeID" OtherKey="TestTypeID" Type="Test" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_ClassDept" Member="View_ClassDepts">
+    <Type Name="View_ClassDept">
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Expr2" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CampusLocationName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CampusLocationID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="NCRECampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="CETCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="MHKCampusLocationID" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ClassNumber" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_EngApply" Member="View_EngApplies">
+    <Type Name="View_EngApply">
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="llv_ID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="xz" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="cc" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CETRedoState" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="PHOTO_SIZE" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="RegisterDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="BelongCampus" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="RegisterCampus" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="llv_Name" Type="System.String" DbType="NVarChar(40) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_Number" Type="System.String" DbType="NVarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_SimpleName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="llv_Date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="llv_StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="llv_EndTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="llv_cost" Type="System.Decimal" DbType="Decimal(18,4) NOT NULL" CanBeNull="false" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterNum" Type="System.String" DbType="NVarChar(12)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_MHKRegs" Member="View_MHKRegs">
+    <Type Name="View_MHKReg">
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cc" Type="System.String" DbType="NVarChar(4)" CanBeNull="true" />
+      <Column Name="KDNum" Type="System.String" DbType="NVarChar(6)" CanBeNull="true" />
+      <Column Name="Politicstatus" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="printlsh" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="StuID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubjID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="CurGrade" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.String" DbType="NVarChar(8) NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="MHKRedoState" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="MHKSubName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="WaterAccount" Type="System.String" DbType="NVarChar(4) NOT NULL" CanBeNull="false" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_MandarinRegInfo" Member="View_MandarinRegInfos">
+    <Type Name="View_MandarinRegInfo">
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RegCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TestCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="TrainCost" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="IsRegistered" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsPayed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="NCRedoState" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_MandarinGrade" Member="View_MandarinGrades">
+    <Type Name="View_MandarinGrade">
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ExamRegNum" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="TestLevel" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="CertificateNumber" Type="System.String" DbType="NVarChar(13) NOT NULL" CanBeNull="false" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_EngGrade" Member="View_EngGrades">
+    <Type Name="View_EngGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LanguageLevel" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(15) NOT NULL" CanBeNull="false" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_NCREGrade" Member="View_NCREGrades">
+    <Type Name="View_NCREGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="SUBJECTCODE" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="SUBJECTNAME" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="GRADE" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="CertificationNum" Type="System.String" DbType="NVarChar(14)" CanBeNull="true" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Note" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cj" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.View_MHKGrade" Member="View_MHKGrades">
+    <Type Name="View_MHKGrade">
+      <Column Name="TestRegisterID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="StudentID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="SubjectName" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="StudentName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UniversityID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="CardID" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Gender" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
+      <Column Name="NationalityName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="DeptName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MajorName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GradeName" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="ExamRegistrationNum" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TestGrade" Type="System.String" DbType="NVarChar(3)" CanBeNull="true" />
+      <Column Name="TestLevel" Type="System.String" DbType="NVarChar(5) NOT NULL" CanBeNull="false" />
+      <Column Name="CertificationNum" Type="System.String" DbType="NVarChar(9)" CanBeNull="true" />
+      <Column Name="TestDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="RegisterName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="RegisterNum" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DeptID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="ClassID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="MajorID" Type="System.Guid" DbType="UniqueIdentifier NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
