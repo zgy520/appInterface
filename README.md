@@ -1,2 +1,2 @@
 # appInterface
-the interface of xbmu's online register system
+the interface of school online register system
